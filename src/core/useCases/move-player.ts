@@ -14,8 +14,8 @@ export class MovePlayerUseCase {
   }
 
   private findMemberById(memberName: string): Member | null {
-    for (let y = 0; y < Board.SIZE; y++) {
-      for (let x = 0; x < Board.SIZE; x++) {
+    for (let y = 0; y < Board.SIZE_Y; y++) {
+      for (let x = 0; x < Board.SIZE_X; x++) {
         const cell = this.board.grid[y][x];
         if (cell instanceof Member && cell.name === memberName) {
           return cell;
@@ -28,7 +28,7 @@ export class MovePlayerUseCase {
   move(memberName: string, direction: Direction): boolean {
     const member = this.findMemberById(memberName);
     if (!member) {
-      throw new Error("Member not found on the board");
+      return false
     }
 
     const { x, y } = member.coords;
@@ -47,8 +47,8 @@ export class MovePlayerUseCase {
     const newCoords = { x: oldX + deltaX, y: oldY + deltaY };
 
     if (
-      newCoords.x >= 0 && newCoords.x < Board.SIZE &&
-      newCoords.y >= 0 && newCoords.y < Board.SIZE &&
+      newCoords.x >= 0 && newCoords.x < Board.SIZE_X &&
+      newCoords.y >= 0 && newCoords.y < Board.SIZE_Y &&
       this.isCellEmpty(newCoords.x, newCoords.y)
     ) {
       this.board.grid[oldY][oldX] = '-';

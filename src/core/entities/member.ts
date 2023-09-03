@@ -2,7 +2,7 @@ import { Coords } from "../../types/coordinates";
 
 export class Member {
   battleAttributes = {}
-  coords?: Coords = { x: 0, y: 0 }
+  coords: Coords = { x: 0, y: 0 }
   team?: string
   name: string
   constructor(name: string) {
